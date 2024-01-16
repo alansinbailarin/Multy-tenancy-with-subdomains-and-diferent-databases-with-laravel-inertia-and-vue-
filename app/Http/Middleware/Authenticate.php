@@ -12,6 +12,13 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
+        // Verificar si el inquilino está presente
+        if ($request->routeIs('tenant.*')) {
+            // Redirigir a la ruta de inicio de sesión del inquilino
+            return $request->expectsJson() ? null : route('tenant.login');
+        }
+
+        // Redirigir a la ruta de inicio de sesión predeterminada para usuarios no inquilinos
         return $request->expectsJson() ? null : route('login');
     }
 }

@@ -24,9 +24,11 @@ class TenantRegistrationRequest extends FormRequest
     {
         return [
             'company' => ['required', 'string', 'max:255'],
-            'domain' => ['required', 'string', 'max:255', 'unique:domains'],
+            'domain' => ['required', 'string', 'max:25', 'min:3', 'unique:domains'],
             'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+            'type_id' => ['required', 'integer'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
