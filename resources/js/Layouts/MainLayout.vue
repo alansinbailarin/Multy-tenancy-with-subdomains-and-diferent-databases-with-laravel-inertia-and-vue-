@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-100">
         <Navbar />
-        <main class="min-h-[78vh]">
+        <main class="">
             <slot>Default</slot>
         </main>
     </div>

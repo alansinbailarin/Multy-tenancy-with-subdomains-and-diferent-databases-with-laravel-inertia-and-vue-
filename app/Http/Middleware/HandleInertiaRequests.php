@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Tenant\Establishment;
+use App\Models\Tenant\Preferences;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\User;
@@ -37,15 +39,32 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $establishment = $request->user()
+            ? $request->user()->establishments()->where('domain', $request->getHost())->first()
+            : null;
+
+        $preferences = $request->user() && $request->user()->establishment
+            ? $request->user()->establishment->preferences
+            : null;
+
         return array_merge(parent::share($request), [
             'auth.user' => fn () => $request->user()
                 ? [
                     'id' => $request->user()->id,
                     'name' => $request->user()->name,
+                    'surname' => $request->user()->surname,
+                    'username' => $request->user()->username,
+                    'slug' => $request->user()->slug,
+                    'avatar' => $request->user()->avatar,
+                    'description' => $request->user()->description,
                     'email' => $request->user()->email,
+                    'position' => $request->user()->position,
                     'establishments' => $request->user()->establishments,
                 ]
                 : null,
+            'establishment' => $establishment,
+            'preferences' => $preferences,
+
         ]);
     }
 }

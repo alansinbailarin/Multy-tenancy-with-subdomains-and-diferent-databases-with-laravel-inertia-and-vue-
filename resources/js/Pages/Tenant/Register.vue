@@ -1,9 +1,14 @@
 <template>
-    <div class="grid grid-cols-1 lg:grid-cols-2 h-screen w-full">
+    <div class="lg:grid grid-cols-1 lg:grid-cols-2 h-screen w-full">
+        <div
+            class="flex lg:hidden bg-blue-600 text-center h-24 justify-center items-center"
+        >
+            <h1 class="text-white">Logo</h1>
+        </div>
         <div
             class="flex items-center justify-center text-center p-4 md:p-12 overflow-y-scroll"
         >
-            <div class="pt-16">
+            <div class="pt-6 lg:pt-20">
                 <h1 class="font-semibold text-2xl">Sign Up</h1>
                 <div id="socials" class="my-4">
                     <h3 class="text-gray-400 text-sm">With your socials</h3>
@@ -292,8 +297,6 @@
                                                     form.password &&
                                                 form.password_confirmation
                                                     .length > 0,
-                                            'text-red-300':
-                                                form.errors.password,
                                         }"
                                     >
                                         <svg
@@ -316,7 +319,9 @@
                                     ><span v-if="!form.processing"
                                         >Get started for free</span
                                     >
-                                    <span v-else>Loading...</span>
+                                    <span v-else
+                                        >We are building your website...</span
+                                    >
                                 </Button>
                             </div>
                         </form>

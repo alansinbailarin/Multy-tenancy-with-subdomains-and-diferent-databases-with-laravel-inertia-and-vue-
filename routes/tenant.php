@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Tenant\IndexController;
 use App\Http\Controllers\Tenant\DashboardController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;

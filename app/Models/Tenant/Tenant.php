@@ -18,4 +18,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             $tenant->password = Hash::make($tenant->password);
         });
     }
+
+    public function establishments()
+    {
+        return $this->hasOne(Establishment::class, 'tenant_id');
+    }
 }

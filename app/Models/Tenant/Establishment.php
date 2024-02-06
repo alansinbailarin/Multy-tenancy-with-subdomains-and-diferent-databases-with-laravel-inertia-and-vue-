@@ -6,19 +6,24 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Stancl\Tenancy\Contracts\SyncMaster;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+use Stancl\Tenancy\Database\Models\TenantPivot;
 
 class Establishment extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToTenant;
 
     protected $fillable = [
         'name',
-        //'description',
         'domain',
-        //'color',
-        //'logo_path',
+        'logo_path',
+        'facebook_url',
+        'instagram_url',
+        'twitter_url',
         'type_id',
-        'user_id'
+        'user_id',
+        'tenant_id'
     ];
 
     public function type()
@@ -29,5 +34,10 @@ class Establishment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function preferences()
+    {
+        return $this->belongsTo(Preferences::class);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->text('slug')->unique();
             $table->text('avatar')->nullable();
+            $table->string('position')->nullable();
             $table->text('description')->nullable();
             $table->string('phone')->nullable();
             $table->date('birthdate')->nullable();

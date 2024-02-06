@@ -13,24 +13,18 @@ return new class extends Migration
     {
         Schema::create('establishments', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
-            //$table->text('description');
+            $table->text('logo_path')->nullable();
             $table->string('domain')->unique();
-            // $table->string('color');
-            // $table->string('logo_path');
-
-            $table->integer('type_id')->unsigned();
-
-
+            $table->string('facebook_url')->nullable();
+            $table->string('instagram_url')->nullable();
+            $table->string('twitter_url')->nullable();
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-
+            $table->string('tenant_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

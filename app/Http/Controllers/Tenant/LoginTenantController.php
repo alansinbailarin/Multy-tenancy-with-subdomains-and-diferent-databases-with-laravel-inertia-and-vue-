@@ -11,7 +11,11 @@ class LoginTenantController extends Controller
 {
     public function create()
     {
-        return inertia('Tenant/Login');
+        $registerRoute = env('APP_URL') . '/register';
+
+        return inertia('Tenant/Login', [
+            'registerRoute' => $registerRoute
+        ]);
     }
 
     public function store(LoginRequest $request)

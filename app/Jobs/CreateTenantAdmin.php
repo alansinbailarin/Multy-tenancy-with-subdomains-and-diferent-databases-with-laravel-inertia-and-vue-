@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Tenant\Establishment;
 use App\Models\Tenant\Tenant;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -29,11 +30,30 @@ class CreateTenantAdmin implements ShouldQueue
     public function handle(): void
     {
         $this->tenant->run(function ($tenant) {
+            // Crear el TenantUser
             $userData = $tenant->only('name', 'surname', 'email', 'password', 'type_id');
             $userData['username'] = $this->generateUsername($tenant->name, $tenant->surname);
             $userData['slug'] = $this->generateSlug($tenant->name, $tenant->surname);
+            $userData['position'] = 'Owner';
 
-            User::create($userData);
+            $tenantUser = User::create($userData);
+
+            // Crear el Establishment asociado al Tenant
+            $establishmentData = [
+                'name' => $tenant->company,
+                'domain' => $tenant->domain, // Ajusta según tus necesidades
+                'type_id' => $tenant->type_id, // Ajusta según tus necesidades
+                'user_id' => $tenantUser->id, // Relacionar con el ID del TenantUser recién creado
+                'tenant_id' => $tenant->id, // Relacionar con el ID del Tenant
+            ];
+
+            $establishment = Establishment::create($establishmentData);
+
+            $preferences = [
+                'establishment_id' => $establishment->id,
+            ];
+
+            $establishment->preferences()->create($preferences);
         });
     }
 
