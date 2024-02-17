@@ -35,6 +35,7 @@ class CreateTenantAdmin implements ShouldQueue
             $userData['username'] = $this->generateUsername($tenant->name, $tenant->surname);
             $userData['slug'] = $this->generateSlug($tenant->name, $tenant->surname);
             $userData['position'] = 'Owner';
+            $userData['first_login'] = true;
 
             $tenantUser = User::create($userData);
 

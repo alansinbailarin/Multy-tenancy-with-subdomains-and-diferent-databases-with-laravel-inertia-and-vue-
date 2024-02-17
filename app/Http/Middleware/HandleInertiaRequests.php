@@ -57,6 +57,7 @@ class HandleInertiaRequests extends Middleware
                     'slug' => $request->user()->slug,
                     'avatar' => $request->user()->avatar,
                     'description' => $request->user()->description,
+                    'first_login' => $request->user()->first_login,
                     'email' => $request->user()->email,
                     'position' => $request->user()->position,
                     'establishments' => $request->user()->establishments,

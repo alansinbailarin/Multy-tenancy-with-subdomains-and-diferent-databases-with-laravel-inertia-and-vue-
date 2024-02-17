@@ -7,6 +7,5 @@
     </div>
 </template>
 <script setup>
-import { usePage } from "@inertiajs/vue3";
 import Navbar from "../Components/Navbar.vue";
 </script>
